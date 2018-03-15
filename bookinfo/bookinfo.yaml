@@ -10,7 +10,7 @@ metadata:
   labels:
     app: billing
     example.com/zone: external
-    example.com/classification: secret
+    example.com/classification: public
 spec:
   ports:
   - port: 9080
