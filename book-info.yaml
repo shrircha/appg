@@ -178,8 +178,7 @@ spec:
     spec:
       containers:
       - name: productpage
-        image: billing
-        #image: istio/examples-bookinfo-productpage-v1:0.2.8
+        image: istio/examples-bookinfo-productpage-v1:0.2.8
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
