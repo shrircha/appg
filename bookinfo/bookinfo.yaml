@@ -9,7 +9,7 @@ metadata:
   name: billing
   labels:
     app: billing
-    example.com/zone: dmz
+    example.com/zone: protected
     example.com/classification: secret
 spec:
   ports:
