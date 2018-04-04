@@ -212,4 +212,8 @@ spec:
         backend:
           serviceName: productpage
           servicePort: 9080
+      - path: /SecurityEventRestService/event/query
+        backend:
+          serviceName: billing
+          servicePort: 9080
 ---
