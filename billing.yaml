@@ -8,6 +8,8 @@ kind: Service
 metadata:
   name: billing
   labels:
+    example.com/zone: dmz
+    example.com/classification: secret
     app: billing
 spec:
   ports:
