@@ -223,7 +223,7 @@ spec:
         - name: ENABLE_BILLING
           value: "true"
         - name: CLIENT_TYPE
-          value: "UNSAFE"
+          value: "SAFE"
         ports:
         - containerPort: 9080
       nodeSelector:
