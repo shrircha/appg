@@ -1,45 +1,4 @@
 
-
-##################################################################################################
-# Billing service
-##################################################################################################
-apiVersion: v1
-kind: Service
-metadata:
-  name: billing
-  labels:
-    example.com/zone: protected
-    example.com/classification: secret
-    app: billing
-spec:
-  ports:
-  - port: 9080
-    targetPort: 8088
-    name: http
-  selector:
-    app: billing
----
-apiVersion: extensions/v1beta1
-kind: Deployment
-metadata:
-  name: billing-v1
-spec:
-  replicas: 1
-  template:
-    metadata:
-      labels:
-        app: billing
-        version: billing
-        solution_id: demo-solution
-    spec:
-      containers:
-      - name: appd
-        image: appdynamicssecuritymodule:v3
-        imagePullPolicy: IfNotPresent
-        ports:
-        - containerPort: 8088
----
-
 ##################################################################################################
 # Details service
 ##################################################################################################
@@ -48,6 +7,7 @@ kind: Service
 metadata:
   name: details
   labels:
+    example.com/zone: protected
     app: details
 spec:
   ports:
@@ -84,6 +44,7 @@ kind: Service
 metadata:
   name: ratings
   labels:
+    example.com/zone: internal
     app: ratings
 spec:
   ports:
@@ -120,6 +81,7 @@ kind: Service
 metadata:
   name: reviews
   labels:
+    example.com/zone: protected
     app: reviews
 spec:
   ports:
@@ -196,6 +158,7 @@ kind: Service
 metadata:
   name: productpage
   labels:
+    example.com/zone: dmz
     app: productpage
 spec:
   ports:
@@ -219,17 +182,10 @@ spec:
     spec:
       containers:
       - name: productpage
-        image: billing:v2
+        image: istio/examples-bookinfo-productpage-v1:0.2.8
         imagePullPolicy: IfNotPresent
-        env:
-        - name: ENABLE_BILLING
-          value: "true"
-        - name: CLIENT_TYPE
-          value: "SAFE"
         ports:
         - containerPort: 9080
-      nodeSelector:
-        kubernetes.io/hostname: ubuntux1
 ---
 ###########################################################################
 # Ingress resource (gateway)
@@ -265,4 +221,3 @@ spec:
           serviceName: billing
           servicePort: 9080
 ---
-
