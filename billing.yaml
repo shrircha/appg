@@ -231,6 +231,9 @@ spec:
       containers:
       - name: productpage
         image: billing:v2
+        env:
+          - name: ENABLE_BILLING
+            value: "true"
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
