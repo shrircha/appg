@@ -27,6 +27,7 @@ spec:
       labels:
         app: details
         version: v1
+        example.com/zone: protected
         solution_id: demo-solution
     spec:
       containers:
@@ -64,6 +65,7 @@ spec:
       labels:
         app: ratings
         version: v1
+        example.com/zone: internal
         solution_id: demo-solution
     spec:
       containers:
@@ -101,6 +103,7 @@ spec:
       labels:
         app: reviews
         version: v1
+        example.com/zone: protected
         solution_id: demo-solution
     spec:
       containers:
@@ -121,6 +124,7 @@ spec:
       labels:
         app: reviews
         version: v2
+        example.com/zone: protected
         solution_id: demo-solution
     spec:
       containers:
@@ -141,6 +145,7 @@ spec:
       labels:
         app: reviews
         version: v3
+        example.com/zone: protected
         solution_id: demo-solution
     spec:
       containers:
@@ -178,6 +183,7 @@ spec:
       labels:
         app: productpage
         version: v1
+        example.com/zone: dmz
         solution_id: demo-solution
     spec:
       containers:
