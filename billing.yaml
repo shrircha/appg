@@ -8,12 +8,13 @@ kind: Service
 metadata:
   name: billing
   labels:
-    app: billing
     example.com/zone: dmz
-    example.com/classification: secret
+    example.com/classification: confidential
+    app: billing
 spec:
   ports:
   - port: 9080
+    targetPort: 8088
     name: http
   selector:
     app: billing
@@ -29,16 +30,17 @@ spec:
       labels:
         app: billing
         version: billing
+        example.com/zone: protected
         solution_id: demo-solution
     spec:
       containers:
-      - name: details
-        image: istio/examples-bookinfo-details-v1:0.2.8
+      - name: appd
+        image: appdynamicssecuritymodule:v3
         imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 9080
----
+        - containerPort: 8088
 
+---
 ##################################################################################################
 # Details service
 ##################################################################################################
@@ -47,6 +49,7 @@ kind: Service
 metadata:
   name: details
   labels:
+    example.com/zone: protected
     app: details
 spec:
   ports:
@@ -66,6 +69,7 @@ spec:
       labels:
         app: details
         version: v1
+        example.com/zone: protected
         solution_id: demo-solution
     spec:
       containers:
@@ -83,6 +87,7 @@ kind: Service
 metadata:
   name: ratings
   labels:
+    example.com/zone: internal
     app: ratings
 spec:
   ports:
@@ -102,6 +107,7 @@ spec:
       labels:
         app: ratings
         version: v1
+        example.com/zone: internal
         solution_id: demo-solution
     spec:
       containers:
@@ -119,6 +125,7 @@ kind: Service
 metadata:
   name: reviews
   labels:
+    example.com/zone: protected
     app: reviews
 spec:
   ports:
@@ -138,6 +145,7 @@ spec:
       labels:
         app: reviews
         version: v1
+        example.com/zone: protected
         solution_id: demo-solution
     spec:
       containers:
@@ -158,6 +166,7 @@ spec:
       labels:
         app: reviews
         version: v2
+        example.com/zone: protected
         solution_id: demo-solution
     spec:
       containers:
@@ -178,6 +187,7 @@ spec:
       labels:
         app: reviews
         version: v3
+        example.com/zone: protected
         solution_id: demo-solution
     spec:
       containers:
@@ -195,6 +205,7 @@ kind: Service
 metadata:
   name: productpage
   labels:
+    example.com/zone: dmz
     app: productpage
 spec:
   ports:
@@ -214,11 +225,15 @@ spec:
       labels:
         app: productpage
         version: v1
+        example.com/zone: dmz
         solution_id: demo-solution
     spec:
       containers:
       - name: productpage
-        image: billing
+        image: billing:v2
+        env:
+          - name: ENABLE_BILLING
+            value: "true"
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
@@ -251,5 +266,9 @@ spec:
       - path: /api/v1/products.*
         backend:
           serviceName: productpage
+          servicePort: 9080
+      - path: /SecurityEventRestService/event/query
+        backend:
+          serviceName: billing
           servicePort: 9080
 ---
