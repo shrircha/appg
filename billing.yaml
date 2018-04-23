@@ -230,7 +230,7 @@ spec:
     spec:
       containers:
       - name: productpage
-        image: billing:v2
+        image: billing:cloud
         env:
           - name: ENABLE_BILLING
             value: "true"
