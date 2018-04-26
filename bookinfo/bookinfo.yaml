@@ -8,7 +8,7 @@ kind: Service
 metadata:
   name: billing
   labels:
-    example.com/zone: dmz
+    example.com/zone: protected
     example.com/classification: confidential
     app: billing
 spec:
