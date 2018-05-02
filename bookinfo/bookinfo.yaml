@@ -8,6 +8,8 @@ kind: Service
 metadata:
   name: billing
   labels:
+    example.com/zone: dmz
+    example.com/classification: confidential
     app: billing
 spec:
   ports:
@@ -28,16 +30,17 @@ spec:
       labels:
         app: billing
         version: billing
+        example.com/zone: protected
         solution_id: demo-solution
     spec:
       containers:
       - name: appd
-        image: appdynamicssecuritymodule:v10
+        image: appdynamicssecuritymodule:v3
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8088
----
 
+---
 ##################################################################################################
 # Details service
 ##################################################################################################
@@ -46,6 +49,7 @@ kind: Service
 metadata:
   name: details
   labels:
+    example.com/zone: protected
     app: details
 spec:
   ports:
@@ -65,6 +69,7 @@ spec:
       labels:
         app: details
         version: v1
+        example.com/zone: protected
         solution_id: demo-solution
     spec:
       containers:
@@ -82,6 +87,7 @@ kind: Service
 metadata:
   name: ratings
   labels:
+    example.com/zone: internal
     app: ratings
 spec:
   ports:
@@ -101,6 +107,7 @@ spec:
       labels:
         app: ratings
         version: v1
+        example.com/zone: internal
         solution_id: demo-solution
     spec:
       containers:
@@ -118,6 +125,7 @@ kind: Service
 metadata:
   name: reviews
   labels:
+    example.com/zone: protected
     app: reviews
 spec:
   ports:
@@ -137,6 +145,7 @@ spec:
       labels:
         app: reviews
         version: v1
+        example.com/zone: protected
         solution_id: demo-solution
     spec:
       containers:
@@ -157,6 +166,7 @@ spec:
       labels:
         app: reviews
         version: v2
+        example.com/zone: protected
         solution_id: demo-solution
     spec:
       containers:
@@ -177,6 +187,7 @@ spec:
       labels:
         app: reviews
         version: v3
+        example.com/zone: protected
         solution_id: demo-solution
     spec:
       containers:
@@ -194,6 +205,7 @@ kind: Service
 metadata:
   name: productpage
   labels:
+    example.com/zone: dmz
     app: productpage
 spec:
   ports:
@@ -213,21 +225,18 @@ spec:
       labels:
         app: productpage
         version: v1
+        example.com/zone: dmz
         solution_id: demo-solution
     spec:
       containers:
       - name: productpage
-        image: billing:v2
-        imagePullPolicy: IfNotPresent
+        image: billing:cloud
         env:
-        - name: ENABLE_BILLING
-          value: "true"
-        - name: CLIENT_TYPE
-          value: "SAFE"
+          - name: ENABLE_BILLING
+            value: "true"
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
-      nodeSelector:
-        kubernetes.io/hostname: ubuntux1
 ---
 ###########################################################################
 # Ingress resource (gateway)
