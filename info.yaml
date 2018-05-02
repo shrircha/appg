@@ -222,8 +222,24 @@ spec:
         backend:
           serviceName: productpage
           servicePort: 9080
-      - path: /SecurityEventRestService/event/query
-        backend:
+      - backend:
           serviceName: billing
           servicePort: 9080
+        path: /SecurityEventDemoServlet/execute.*
+      - backend:
+          serviceName: billing
+          servicePort: 9080
+        path: /SecurityEventRestService/event/query
+      - backend:
+          serviceName: billing
+          servicePort: 9080
+        path: /SecurityEventRestService/event/events
+      - backend:
+          serviceName: billing
+          servicePort: 9080
+        path: /SecurityEventRestService/event.*
+      - backend:
+          serviceName: productpage
+          servicePort: 9080
+        path: /api/speech.*
 ---
