@@ -1,6 +1,48 @@
 
+
 ##################################################################################################
-## Details service
+# Billing service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: billing
+  labels:
+    example.com/zone: dmz
+    example.com/classification: confidential
+    app: billing
+spec:
+  ports:
+  - port: 9080
+    targetPort: 8088
+    name: http
+  selector:
+    app: billing
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: billing-v1
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: billing
+        version: billing
+        example.com/zone: protected
+        solution_id: demo-solution
+    spec:
+      containers:
+      - name: appd
+        image: appdynamicssecuritymodule:v3
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8088
+
+---
+##################################################################################################
+# Details service
 ##################################################################################################
 apiVersion: v1
 kind: Service
@@ -188,7 +230,10 @@ spec:
     spec:
       containers:
       - name: productpage
-        image: istio/examples-bookinfo-productpage-v1:0.2.8
+        image: billing:cloud
+        env:
+          - name: ENABLE_BILLING
+            value: "true"
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
@@ -222,14 +267,14 @@ spec:
         backend:
           serviceName: productpage
           servicePort: 9080
+      - path: /SecurityEventRestService/event/query
+        backend:
+          serviceName: billing
+          servicePort: 9080
       - backend:
           serviceName: billing
           servicePort: 9080
         path: /SecurityEventDemoServlet/execute.*
-      - backend:
-          serviceName: billing
-          servicePort: 9080
-        path: /SecurityEventRestService/event/query
       - backend:
           serviceName: billing
           servicePort: 9080
