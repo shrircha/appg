@@ -30,6 +30,7 @@ spec:
       labels:
         app: billing
         version: billing
+        example.com/zone: protected
         solution_id: demo-solution
     spec:
       containers:
@@ -49,6 +50,7 @@ metadata:
   name: details
   labels:
     app: details
+    example.com/zone: protected
 spec:
   ports:
   - port: 9080
@@ -67,6 +69,7 @@ spec:
       labels:
         app: details
         version: v1
+        example.com/zone: protected
         solution_id: demo-solution
     spec:
       containers:
@@ -85,6 +88,7 @@ metadata:
   name: ratings
   labels:
     app: ratings
+    example.com/zone: internal
 spec:
   ports:
   - port: 9080
@@ -103,6 +107,7 @@ spec:
       labels:
         app: ratings
         version: v1
+        example.com/zone: internal
         solution_id: demo-solution
     spec:
       containers:
@@ -121,6 +126,7 @@ metadata:
   name: reviews
   labels:
     app: reviews
+    example.com/zone: protected
 spec:
   ports:
   - port: 9080
@@ -139,6 +145,7 @@ spec:
       labels:
         app: reviews
         version: v1
+        example.com/zone: protected
         solution_id: demo-solution
     spec:
       containers:
@@ -159,6 +166,7 @@ spec:
       labels:
         app: reviews
         version: v2
+        example.com/zone: protected
         solution_id: demo-solution
     spec:
       containers:
@@ -179,6 +187,7 @@ spec:
       labels:
         app: reviews
         version: v3
+        example.com/zone: protected
         solution_id: demo-solution
     spec:
       containers:
@@ -197,6 +206,7 @@ metadata:
   name: productpage
   labels:
     app: productpage
+    example.com/zone: dmz
 spec:
   ports:
   - port: 9080
@@ -215,6 +225,7 @@ spec:
       labels:
         app: productpage
         version: v1
+        example.com/zone: dmz
         solution_id: demo-solution
     spec:
       containers:
