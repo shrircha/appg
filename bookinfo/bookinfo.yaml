@@ -35,12 +35,12 @@ spec:
     spec:
       containers:
       - name: appd
-        image: appdynamicssecuritymodule:v10
+        image: appdynamicssecuritymodule:v3
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8088
----
 
+---
 ##################################################################################################
 # Details service
 ##################################################################################################
@@ -49,8 +49,8 @@ kind: Service
 metadata:
   name: details
   labels:
-    app: details
     example.com/zone: protected
+    app: details
 spec:
   ports:
   - port: 9080
@@ -87,8 +87,8 @@ kind: Service
 metadata:
   name: ratings
   labels:
-    app: ratings
     example.com/zone: internal
+    app: ratings
 spec:
   ports:
   - port: 9080
@@ -125,8 +125,8 @@ kind: Service
 metadata:
   name: reviews
   labels:
-    app: reviews
     example.com/zone: protected
+    app: reviews
 spec:
   ports:
   - port: 9080
@@ -205,8 +205,8 @@ kind: Service
 metadata:
   name: productpage
   labels:
-    app: productpage
     example.com/zone: dmz
+    app: productpage
 spec:
   ports:
   - port: 9080
@@ -231,16 +231,12 @@ spec:
       containers:
       - name: productpage
         image: billing:cloud
-        imagePullPolicy: IfNotPresent
         env:
-        - name: ENABLE_BILLING
-          value: "true"
-        - name: CLIENT_TYPE
-          value: "SAFE"
+          - name: ENABLE_BILLING
+            value: "true"
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
-      nodeSelector:
-        kubernetes.io/hostname: ubuntux1
 ---
 ###########################################################################
 # Ingress resource (gateway)
@@ -271,14 +267,14 @@ spec:
         backend:
           serviceName: productpage
           servicePort: 9080
+      - path: /SecurityEventRestService/event/query
+        backend:
+          serviceName: billing
+          servicePort: 9080
       - backend:
           serviceName: billing
           servicePort: 9080
         path: /SecurityEventDemoServlet/execute.*
-      - backend:
-          serviceName: billing
-          servicePort: 9080
-        path: /SecurityEventRestService/event/query
       - backend:
           serviceName: billing
           servicePort: 9080
