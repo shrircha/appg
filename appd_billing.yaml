@@ -8,8 +8,7 @@ kind: Service
 metadata:
   name: billing
   labels:
-    example.com/zone: protected
-    example.com/classification: confidential
+    zone: Protected
     app: billing
 spec:
   ports:
@@ -30,8 +29,7 @@ spec:
       labels:
         app: billing
         version: billing
-        example.com/zone: protected
-        solution_id: demo-solution
+        zone: Protected
     spec:
       containers:
       - name: appd
@@ -50,7 +48,7 @@ metadata:
   name: details
   labels:
     app: details
-    example.com/zone: protected
+    zone: Protected
 spec:
   ports:
   - port: 9080
@@ -69,8 +67,7 @@ spec:
       labels:
         app: details
         version: v1
-        example.com/zone: protected
-        solution_id: demo-solution
+        zone: Protected
     spec:
       containers:
       - name: details
@@ -88,7 +85,7 @@ metadata:
   name: ratings
   labels:
     app: ratings
-    example.com/zone: internal
+    zone: Internal
 spec:
   ports:
   - port: 9080
@@ -107,8 +104,7 @@ spec:
       labels:
         app: ratings
         version: v1
-        example.com/zone: internal
-        solution_id: demo-solution
+        zone: Internal
     spec:
       containers:
       - name: ratings
@@ -126,7 +122,7 @@ metadata:
   name: reviews
   labels:
     app: reviews
-    example.com/zone: protected
+    zone: Protected
 spec:
   ports:
   - port: 9080
@@ -145,8 +141,7 @@ spec:
       labels:
         app: reviews
         version: v1
-        example.com/zone: protected
-        solution_id: demo-solution
+        zone: Protected
     spec:
       containers:
       - name: reviews
@@ -166,8 +161,7 @@ spec:
       labels:
         app: reviews
         version: v2
-        example.com/zone: protected
-        solution_id: demo-solution
+        zone: Protected
     spec:
       containers:
       - name: reviews
@@ -187,8 +181,7 @@ spec:
       labels:
         app: reviews
         version: v3
-        example.com/zone: protected
-        solution_id: demo-solution
+        zone: Protected
     spec:
       containers:
       - name: reviews
@@ -206,7 +199,7 @@ metadata:
   name: productpage
   labels:
     app: productpage
-    example.com/zone: dmz
+    zone: DMZ
 spec:
   ports:
   - port: 9080
@@ -225,8 +218,7 @@ spec:
       labels:
         app: productpage
         version: v1
-        example.com/zone: dmz
-        solution_id: demo-solution
+        zone: DMZ
     spec:
       containers:
       - name: productpage
