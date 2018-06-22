@@ -8,7 +8,7 @@ kind: Service
 metadata:
   name: billing
   labels:
-    zone: Protected
+    privacy: Confidential
     app: billing
 spec:
   ports:
@@ -29,7 +29,7 @@ spec:
       labels:
         app: billing
         version: billing
-        zone: Protected
+        privacy: Confidential
     spec:
       containers:
       - name: appd
@@ -47,7 +47,7 @@ kind: Service
 metadata:
   name: details
   labels:
-    zone: Protected
+    privacy: Confidential
     app: details
 spec:
   ports:
@@ -67,7 +67,7 @@ spec:
       labels:
         app: details
         version: v1
-        zone: Protected
+        privacy: Confidential
     spec:
       containers:
       - name: details
@@ -84,7 +84,7 @@ kind: Service
 metadata:
   name: ratings
   labels:
-    zone: Internal
+    privacy: TopSecret
     app: ratings
 spec:
   ports:
@@ -104,7 +104,7 @@ spec:
       labels:
         app: ratings
         version: v1
-        zone: Internal
+        privacy: TopSecret
     spec:
       containers:
       - name: ratings
@@ -121,7 +121,7 @@ kind: Service
 metadata:
   name: reviews
   labels:
-    zone: Protected
+    privacy: Confidential
     app: reviews
 spec:
   ports:
@@ -141,7 +141,7 @@ spec:
       labels:
         app: reviews
         version: v1
-        zone: Protected
+        privacy: Confidential
     spec:
       containers:
       - name: reviews
@@ -161,7 +161,7 @@ spec:
       labels:
         app: reviews
         version: v2
-        zone: Protected
+        privacy: Confidential
     spec:
       containers:
       - name: reviews
@@ -181,7 +181,7 @@ spec:
       labels:
         app: reviews
         version: v3
-        zone: Protected
+        privacy: Confidential
     spec:
       containers:
       - name: reviews
@@ -198,7 +198,7 @@ kind: Service
 metadata:
   name: productpage
   labels:
-    zone: DMZ
+    privacy: Normal
     app: productpage
 spec:
   ports:
@@ -218,7 +218,7 @@ spec:
       labels:
         app: productpage
         version: v1
-        zone: DMZ
+        privacy: Normal
     spec:
       containers:
       - name: productpage
