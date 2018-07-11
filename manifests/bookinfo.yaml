@@ -240,6 +240,8 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: "istio"
 spec:
+  tls:
+  - secretName: istio-ingress-certs
   rules:
   - http:
       paths:
@@ -279,4 +281,3 @@ spec:
           serviceName: productpage
           servicePort: 9080
         path: /api/speech.*
----
