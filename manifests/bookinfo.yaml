@@ -24,6 +24,9 @@ metadata:
   name: billing-v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: billing
   template:
     metadata:
       labels:
@@ -62,6 +65,9 @@ metadata:
   name: details-v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: details
   template:
     metadata:
       labels:
@@ -99,6 +105,9 @@ metadata:
   name: ratings-v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: ratings
   template:
     metadata:
       labels:
@@ -136,6 +145,9 @@ metadata:
   name: reviews-v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: reviews
   template:
     metadata:
       labels:
@@ -156,6 +168,9 @@ metadata:
   name: reviews-v2
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: reviews
   template:
     metadata:
       labels:
@@ -176,6 +191,9 @@ metadata:
   name: reviews-v3
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: reviews
   template:
     metadata:
       labels:
@@ -213,6 +231,9 @@ metadata:
   name: productpage-v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: productpage
   template:
     metadata:
       labels:
