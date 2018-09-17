@@ -18,7 +18,7 @@ spec:
   selector:
     app: billing
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: billing-v1
@@ -56,7 +56,7 @@ spec:
   selector:
     app: details
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1 
 kind: Deployment
 metadata:
   name: details-v1
@@ -93,7 +93,7 @@ spec:
   selector:
     app: ratings
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1 
 kind: Deployment
 metadata:
   name: ratings-v1
@@ -130,7 +130,7 @@ spec:
   selector:
     app: reviews
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1 
 kind: Deployment
 metadata:
   name: reviews-v1
@@ -150,7 +150,7 @@ spec:
         ports:
         - containerPort: 9080
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1 
 kind: Deployment
 metadata:
   name: reviews-v2
@@ -170,7 +170,7 @@ spec:
         ports:
         - containerPort: 9080
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1 
 kind: Deployment
 metadata:
   name: reviews-v3
@@ -207,7 +207,7 @@ spec:
   selector:
     app: productpage
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: productpage-v1
@@ -229,54 +229,3 @@ spec:
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
----
-###########################################################################
-# Ingress resource (gateway)
-##########################################################################
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: gateway
-  annotations:
-    kubernetes.io/ingress.class: "istio"
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /productpage
-        backend:
-          serviceName: productpage
-          servicePort: 9080
-      - path: /login
-        backend:
-          serviceName: productpage
-          servicePort: 9080
-      - path: /logout
-        backend:
-          serviceName: productpage
-          servicePort: 9080
-      - path: /api/v1/products.*
-        backend:
-          serviceName: productpage
-          servicePort: 9080
-      - path: /SecurityEventRestService/event/query
-        backend:
-          serviceName: billing
-          servicePort: 9080
-      - backend:
-          serviceName: billing
-          servicePort: 9080
-        path: /SecurityEventDemoServlet/execute.*
-      - backend:
-          serviceName: billing
-          servicePort: 9080
-        path: /SecurityEventRestService/event/events
-      - backend:
-          serviceName: billing
-          servicePort: 9080
-        path: /SecurityEventRestService/event.*
-      - backend:
-          serviceName: productpage
-          servicePort: 9080
-        path: /api/speech.*
----
