@@ -36,7 +36,7 @@ spec:
     spec:
       containers:
       - name: appd
-        image: appdynamicssecuritymodule:v10
+        image: 10.195.69.200:5000/appdynamicssecuritymodule:v10
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8088
@@ -243,7 +243,7 @@ spec:
     spec:
       containers:
       - name: productpage
-        image: billing:cloud
+        image: 10.195.69.200:5000/billing:cloud
         env:
           - name: ENABLE_BILLING
             value: "true"
