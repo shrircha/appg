@@ -4,6 +4,7 @@ kind: Deployment
 metadata:
   labels:
     app: mongo
+    privacy: TopSecret
   name: mongo-controller
 spec:
   replicas: 1
@@ -14,6 +15,7 @@ spec:
     metadata:
       labels:
         app: mongo
+        privacy: TopSecret
     spec:
       containers:
       - image: mongo
@@ -22,12 +24,12 @@ spec:
         - name: mongo
           containerPort: 27017
           hostPort: 27017
-        volumeMounts:
-            - name: mongo-persistent-storage
-              mountPath: /data/db
-      volumes:
-        - name: mongo-persistent-storage
-          emptyDir: {}
+#        volumeMounts:
+#            - name: mongo-persistent-storage
+#              mountPath: /data/db
+#      volumes:
+#        - name: mongo-persistent-storage
+#          emptyDir: {}
 
 ---
 
@@ -37,6 +39,7 @@ kind: Service
 metadata:
   labels:
     app: mongo
+    privacy: TopSecret
   name: mongo
 spec:
   ports:
@@ -53,6 +56,7 @@ kind: Deployment
 metadata:
   labels:
     app: web
+    privacy: Normal
   name: web-controller
 spec:
   replicas: 2
@@ -63,6 +67,7 @@ spec:
     metadata:
       labels:
         app: web
+        privacy: Normal
     spec:
       containers:
       - image: 10.195.69.200:5000/v1/infosec-app
@@ -80,6 +85,7 @@ metadata:
   name: web
   labels:
     app: web
+    privacy: Normal
 spec:
   type: NodePort
   ports:
