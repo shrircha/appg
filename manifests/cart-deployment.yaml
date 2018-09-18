@@ -7,9 +7,13 @@ metadata:
   creationTimestamp: null
   labels:
     io.kompose.service: cart
+    app: cart
   name: cart
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: cart
   strategy: {}
   template:
     metadata:
