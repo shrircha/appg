@@ -65,7 +65,7 @@ spec:
         app: web
     spec:
       containers:
-      - image: 10.195.69.200:5000/infosec-app
+      - image: 10.195.69.200:5000/v1/infosec-app
         name: web
         ports:
         - containerPort: 3000
