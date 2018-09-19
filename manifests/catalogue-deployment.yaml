@@ -20,6 +20,7 @@ spec:
       creationTimestamp: null
       labels:
         io.kompose.service: catalogue
+        app: catalogue
     spec:
       containers:
       - image: robotshop/rs-catalogue:latest

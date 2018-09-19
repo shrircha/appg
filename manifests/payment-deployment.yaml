@@ -20,6 +20,7 @@ spec:
       creationTimestamp: null
       labels:
         io.kompose.service: payment
+        app: payment
     spec:
       containers:
       - image: robotshop/rs-payment:latest

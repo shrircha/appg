@@ -20,6 +20,7 @@ spec:
       creationTimestamp: null
       labels:
         io.kompose.service: rabbitmq
+        app: rabbitmq
     spec:
       containers:
       - image: rabbitmq:3.7-management-alpine

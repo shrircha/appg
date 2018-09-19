@@ -20,6 +20,7 @@ spec:
       creationTimestamp: null
       labels:
         io.kompose.service: web
+        app: web
     spec:
       containers:
       - image: robotshop/rs-web:latest

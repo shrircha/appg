@@ -20,6 +20,7 @@ spec:
       creationTimestamp: null
       labels:
         io.kompose.service: mysql
+        app: mysql
     spec:
       containers:
       - image: robotshop/rs-mysql-db:latest

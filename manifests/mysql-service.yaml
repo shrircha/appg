@@ -7,6 +7,7 @@ metadata:
   creationTimestamp: null
   labels:
     io.kompose.service: mysql
+    app: mysql
   name: mysql
 spec:
   ports:

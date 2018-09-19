@@ -20,6 +20,7 @@ spec:
       creationTimestamp: null
       labels:
         io.kompose.service: mongodb
+        app: mongodb
     spec:
       containers:
       - image: robotshop/rs-mongodb:latest
