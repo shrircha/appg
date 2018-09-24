@@ -1,4 +1,41 @@
-
+##################################################################################################
+# Billing service
+##################################################################################################
+apiVersion: v1
+kind: Service
+metadata:
+  name: billing2
+  labels:
+    app: billing2
+spec:
+  ports:
+  - port: 9080
+    targetPort: 8088
+    name: http
+  selector:
+    app: billing2
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: billing-v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: billing2
+  template:
+    metadata:
+      labels:
+        app: billing2
+        version: billing2
+    spec:
+      containers:
+      - name: appd
+        image: 10.195.69.200:5000/appdynamicssecuritymodule:v10
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8088
 
 ##################################################################################################
 # Billing service
