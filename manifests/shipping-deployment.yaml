@@ -23,7 +23,7 @@ spec:
         app: shipping
     spec:
       containers:
-      - image: robotshop/rs-shipping:latest
+      - image: 10.195.69.200:5000/appg-robot-shipping:v1
         name: shipping
         ports:
         - containerPort: 8080

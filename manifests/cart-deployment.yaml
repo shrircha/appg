@@ -23,7 +23,7 @@ spec:
         app: cart
     spec:
       containers:
-      - image: robotshop/rs-cart:latest
+      - image: 10.195.69.200:5000/appg-robot-cart:v1
         name: cart
         env:
           - name: INSTANA_AGENT_HOST

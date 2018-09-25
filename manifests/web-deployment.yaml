@@ -23,7 +23,7 @@ spec:
         app: web
     spec:
       containers:
-      - image: robotshop/rs-web:latest
+      - image: 10.195.69.200:5000/appg-robot-web:v1
         name: web
         ports:
         - containerPort: 8080

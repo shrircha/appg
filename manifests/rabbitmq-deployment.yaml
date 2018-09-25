@@ -23,11 +23,13 @@ spec:
         app: rabbitmq
     spec:
       containers:
-      - image: rabbitmq:3.7-management-alpine
+      - image: rabbitmq
         name: rabbitmq
         ports:
         - containerPort: 5672
         - containerPort: 15672
+        - name: epmd
+          containerPort: 4369
         resources:
           limits:
             cpu: 200m

@@ -23,7 +23,7 @@ spec:
         app: payment
     spec:
       containers:
-      - image: robotshop/rs-payment:latest
+      - image: 10.195.69.200:5000/appg-robot-payment:v1
         name: payment
         env:
           - name: INSTANA_AGENT_HOST
