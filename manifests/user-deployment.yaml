@@ -8,6 +8,7 @@ metadata:
   labels:
     io.kompose.service: user
     app: user
+    privacy: Confidential
   name: user
 spec:
   replicas: 1
@@ -21,6 +22,7 @@ spec:
       labels:
         io.kompose.service: user
         app: user
+        privacy: Confidential
     spec:
       containers:
       - image: robotshop/rs-user:latest

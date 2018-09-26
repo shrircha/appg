@@ -8,6 +8,7 @@ metadata:
   labels:
     io.kompose.service: mongodb
     app: mongodb
+    privacy: TopSecret
   name: mongodb
 spec:
   replicas: 1
@@ -21,6 +22,7 @@ spec:
       labels:
         io.kompose.service: mongodb
         app: mongodb
+        privacy: TopSecret
     spec:
       containers:
       - image: 10.195.69.200:5000/appg-robot-mongo:v1

@@ -8,6 +8,7 @@ metadata:
   labels:
     io.kompose.service: dispatch
     app: dispatch
+    privacy: Confidential
   name: dispatch
 spec:
   replicas: 1
@@ -21,6 +22,7 @@ spec:
       labels:
         io.kompose.service: dispatch
         app: dispatch
+        privacy: Confidential
     spec:
       containers:
       - image: robotshop/rs-dispatch:latest
