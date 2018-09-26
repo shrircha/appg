@@ -8,6 +8,7 @@ metadata:
   labels:
     io.kompose.service: rabbitmq
     app: rabbitmq
+    privacy: TopSecret
   name: rabbitmq
 spec:
   ports:

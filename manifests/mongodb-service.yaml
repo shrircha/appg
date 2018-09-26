@@ -8,6 +8,7 @@ metadata:
   labels:
     io.kompose.service: mongodb
     app: mongodb
+    privacy: TopSecret
   name: mongodb
 spec:
   ports:
