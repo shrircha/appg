@@ -8,6 +8,7 @@ metadata:
   labels:
     io.kompose.service: payment
     app: payment
+    privacy: Confidential 
   name: payment
 spec:
   replicas: 1
@@ -21,9 +22,10 @@ spec:
       labels:
         io.kompose.service: payment
         app: payment
+        privacy: Confidential
     spec:
       containers:
-      - image: robotshop/rs-payment:latest
+      - image: 10.195.69.200:5000/appg-robot-payment:v1
         name: payment
         env:
           - name: INSTANA_AGENT_HOST

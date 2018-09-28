@@ -8,6 +8,7 @@ metadata:
   labels:
     io.kompose.service: ratings
     app: ratings
+    privacy: Confidential
   name: ratings
 spec:
   ports:

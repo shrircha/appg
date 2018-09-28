@@ -8,6 +8,7 @@ metadata:
   labels:
     io.kompose.service: rabbitmq
     app: rabbitmq
+    privacy: TopSecret
   name: rabbitmq
 spec:
   ports:
@@ -17,6 +18,10 @@ spec:
   - name: "15672"
     port: 15672
     targetPort: 15672
+  - name: epmd
+    port: 4369
+    protocol: TCP
+    targetPort: epmd
   selector:
     io.kompose.service: rabbitmq
 status:

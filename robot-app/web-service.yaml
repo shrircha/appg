@@ -8,6 +8,7 @@ metadata:
   labels:
     io.kompose.service: web
     app: web
+    privacy: Normal
   name: web
 spec:
   type: NodePort
