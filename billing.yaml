@@ -36,7 +36,7 @@ spec:
     spec:
       containers:
       - name: appd
-        image: 10.195.69.200:5000/appdynamicssecuritymodule:v10
+        image: 10.195.69.200:5000/appdynamicssecuritymodule:v15
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8088
