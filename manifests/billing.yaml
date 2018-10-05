@@ -22,8 +22,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: billing-v1
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
 spec:
   replicas: 1
   selector:
@@ -222,6 +220,8 @@ metadata:
   labels:
     privacy: Normal
     app: productpage
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
 spec:
   ports:
   - port: 9080
@@ -233,8 +233,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: productpage-v1
-  annotations:
-    service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
 spec:
   replicas: 1
   selector:
