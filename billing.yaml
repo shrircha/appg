@@ -22,6 +22,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: billing-v1
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
 spec:
   replicas: 1
   selector:
@@ -34,10 +36,12 @@ spec:
         version: billing
         privacy: Confidential
     spec:
+      imagePullSecrets:
+       - name: appguard-bot
       containers:
       - name: appd
         image: registry.strln.net/appguard/appdynamicssecuritymodule:v15
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 8088
 
@@ -229,6 +233,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: productpage-v1
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
 spec:
   replicas: 1
   selector:
@@ -241,12 +247,14 @@ spec:
         version: v1
         privacy: Normal
     spec:
+      imagePullSecrets:
+       - name: appguard-bot
       containers:
       - name: productpage
         image: registry.strln.net/appguard/billing:cloud
         env:
           - name: ENABLE_BILLING
             value: "true"
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         ports:
         - containerPort: 9080
