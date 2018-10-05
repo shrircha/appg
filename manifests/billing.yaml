@@ -224,6 +224,7 @@ metadata:
     service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
 spec:
   ports:
+  type: LoadBalancer
   - port: 9080
     name: http
   selector:
