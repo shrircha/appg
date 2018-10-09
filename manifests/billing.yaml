@@ -8,7 +8,6 @@ kind: Service
 metadata:
   name: billing
   labels:
-    privacy: Confidential
     app: billing
 spec:
   ports:
