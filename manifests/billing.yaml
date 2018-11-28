@@ -35,7 +35,7 @@ spec:
     spec:
       containers:
       - name: appd
-        image: 10.195.69.200:5000/appdynamicssecuritymodule:v15
+        image: 079349112641.dkr.ecr.us-east-2.amazonaws.com/appdynamicssecuritymodule:v15
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8088
@@ -242,7 +242,7 @@ spec:
     spec:
       containers:
       - name: productpage
-        image: 10.195.69.200:5000/billing:cloud
+        image: 079349112641.dkr.ecr.us-east-2.amazonaws.com/billing:cloud
         env:
           - name: ENABLE_BILLING
             value: "true"
