@@ -8,8 +8,6 @@ kind: Service
 metadata:
   name: billing
   labels:
-    example.com/zone: protected
-    example.com/classification: confidential
     app: billing
 spec:
   ports:
@@ -19,28 +17,30 @@ spec:
   selector:
     app: billing
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: billing-v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: billing
   template:
     metadata:
       labels:
         app: billing
         version: billing
-        example.com/zone: protected
-        solution_id: demo-solution
+        privacy: Confidential
     spec:
       containers:
       - name: appd
-        image: appdynamicssecuritymodule:v10
+        image: 079349112641.dkr.ecr.us-east-2.amazonaws.com/appdynamicssecuritymodule:v15
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8088
----
 
+---
 ##################################################################################################
 # Details service
 ##################################################################################################
@@ -49,8 +49,8 @@ kind: Service
 metadata:
   name: details
   labels:
+    privacy: Confidential
     app: details
-    example.com/zone: protected
 spec:
   ports:
   - port: 9080
@@ -58,19 +58,21 @@ spec:
   selector:
     app: details
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1 
 kind: Deployment
 metadata:
   name: details-v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: details
   template:
     metadata:
       labels:
         app: details
         version: v1
-        example.com/zone: protected
-        solution_id: demo-solution
+        privacy: Confidential
     spec:
       containers:
       - name: details
@@ -87,8 +89,8 @@ kind: Service
 metadata:
   name: ratings
   labels:
+    privacy: TopSecret
     app: ratings
-    example.com/zone: internal
 spec:
   ports:
   - port: 9080
@@ -96,19 +98,21 @@ spec:
   selector:
     app: ratings
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1 
 kind: Deployment
 metadata:
   name: ratings-v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: ratings
   template:
     metadata:
       labels:
         app: ratings
         version: v1
-        example.com/zone: internal
-        solution_id: demo-solution
+        privacy: TopSecret
     spec:
       containers:
       - name: ratings
@@ -125,8 +129,8 @@ kind: Service
 metadata:
   name: reviews
   labels:
+    privacy: Confidential
     app: reviews
-    example.com/zone: protected
 spec:
   ports:
   - port: 9080
@@ -134,19 +138,21 @@ spec:
   selector:
     app: reviews
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1 
 kind: Deployment
 metadata:
   name: reviews-v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: reviews
   template:
     metadata:
       labels:
         app: reviews
         version: v1
-        example.com/zone: protected
-        solution_id: demo-solution
+        privacy: Confidential
     spec:
       containers:
       - name: reviews
@@ -155,19 +161,21 @@ spec:
         ports:
         - containerPort: 9080
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1 
 kind: Deployment
 metadata:
   name: reviews-v2
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: reviews
   template:
     metadata:
       labels:
         app: reviews
         version: v2
-        example.com/zone: protected
-        solution_id: demo-solution
+        privacy: Confidential
     spec:
       containers:
       - name: reviews
@@ -176,19 +184,21 @@ spec:
         ports:
         - containerPort: 9080
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1 
 kind: Deployment
 metadata:
   name: reviews-v3
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: reviews
   template:
     metadata:
       labels:
         app: reviews
         version: v3
-        example.com/zone: protected
-        solution_id: demo-solution
+        privacy: Confidential
     spec:
       containers:
       - name: reviews
@@ -205,8 +215,8 @@ kind: Service
 metadata:
   name: productpage
   labels:
+    privacy: Normal
     app: productpage
-    example.com/zone: dmz
 spec:
   ports:
   - port: 9080
@@ -214,81 +224,28 @@ spec:
   selector:
     app: productpage
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: productpage-v1
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: productpage
   template:
     metadata:
       labels:
         app: productpage
         version: v1
-        example.com/zone: dmz
-        solution_id: demo-solution
+        privacy: Normal
     spec:
       containers:
       - name: productpage
-        image: billing:cloud
-        imagePullPolicy: IfNotPresent
+        image: 079349112641.dkr.ecr.us-east-2.amazonaws.com/billing:cloud
         env:
-        - name: ENABLE_BILLING
-          value: "true"
-        - name: CLIENT_TYPE
-          value: "SAFE"
+          - name: ENABLE_BILLING
+            value: "true"
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 9080
-      nodeSelector:
-        kubernetes.io/hostname: ubuntux1
----
-###########################################################################
-# Ingress resource (gateway)
-##########################################################################
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: gateway
-  annotations:
-    kubernetes.io/ingress.class: "istio"
-spec:
-  rules:
-  - http:
-      paths:
-      - path: /productpage
-        backend:
-          serviceName: productpage
-          servicePort: 9080
-      - path: /login
-        backend:
-          serviceName: productpage
-          servicePort: 9080
-      - path: /logout
-        backend:
-          serviceName: productpage
-          servicePort: 9080
-      - path: /api/v1/products.*
-        backend:
-          serviceName: productpage
-          servicePort: 9080
-      - backend:
-          serviceName: billing
-          servicePort: 9080
-        path: /SecurityEventDemoServlet/execute.*
-      - backend:
-          serviceName: billing
-          servicePort: 9080
-        path: /SecurityEventRestService/event/query
-      - backend:
-          serviceName: billing
-          servicePort: 9080
-        path: /SecurityEventRestService/event/events
-      - backend:
-          serviceName: billing
-          servicePort: 9080
-        path: /SecurityEventRestService/event.*
-      - backend:
-          serviceName: productpage
-          servicePort: 9080
-        path: /api/speech.*
----

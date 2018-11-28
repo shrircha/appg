@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose -f ../docker-compose.yaml convert
+    kompose.version: 1.10.0 (8bb0907)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: cart
+    privacy: Confidential
+    app: cart
+  name: cart
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: cart
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        io.kompose.service: cart
+        privacy: Confidential
+        app: cart
+    spec:
+      containers:
+      - image: 10.195.69.200:5000/appg-robot-cart:v1
+        name: cart
+        env:
+          - name: INSTANA_AGENT_HOST
+            valueFrom:
+              fieldRef:
+                fieldPath: status.hostIP
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: 200m
+            memory: 100Mi
+          requests:
+            cpu: 100m
+            memory: 50Mi
+      restartPolicy: Always
+status: {}
